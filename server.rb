@@ -1,15 +1,12 @@
 require 'webrick'
 
-class Solver
-  def solve board,reversible
-    return [:put,[1,1]]
-  end
-end
-
 class OseroServlet < WEBrick::HTTPServlet::AbstractServlet
   def do_GET req,res
     board=req.query['board'].split('.')
     reversible=req.query['reverse'].to_i
+
+    solver_src=File.join(File.dirname(__FILE__),'solver.rb')
+    load solver_src
 
     answer=Solver.new.solve(board,reversible)
     res['Content-Type']='text/plain'
