@@ -28,7 +28,6 @@ describe Solver do
         @s.available_pos(['0EP0']).should == [[0,0]]
       end
       it 'should return vertical availables' do
-        pending
         @s.available_pos(['P','E','0']).should == [[0,2]]
         @s.available_pos(['0','E','P']).should == [[0,0]]
       end
