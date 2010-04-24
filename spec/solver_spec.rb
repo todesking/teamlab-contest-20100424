@@ -24,6 +24,8 @@ describe Solver do
     describe 'when some reversible positions exists' do
       it 'should return horizontal availables' do
         @s.available_pos(['PE0']).should == [[2,0]]
+        @s.available_pos(['PEE00P']).should == [[3,0]]
+        @s.available_pos(['0EP0']).should == [[0,0]]
       end
       it 'should return vertical availables' do
         pending
