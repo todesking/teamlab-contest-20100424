@@ -5,7 +5,7 @@ describe Solver do
     @s=Solver.new
   end
   describe '#available_pos' do
-    describe 'none to reverse' do
+    describe 'when none to reverse' do
       it 'returns empty if all blocked' do
         @s.available_pos(['X']).should be_empty
         @s.available_pos(['XXX','XXX']).should be_empty
@@ -19,6 +19,22 @@ describe Solver do
       it 'returns empty if could not reverse any enemys block' do
         @s.available_pos(['PP0']).should be_empty
         @s.available_pos(['EP0']).should be_empty
+      end
+    end
+    describe 'when some reversible positions exists' do
+      it 'returns all available pos that could reverse enemys block' do
+        # yoko
+        @s.available_pos(['PE0']).should == [[2,0]]
+        #tate
+        @s.available_pos(['P','E','0']).should == [[0,2]]
+        #naname
+        @s.available_pos(['P00','0E0','000']).should == [[2,2]]
+        # multiple
+        @s.available_pos(<<-B.split("\n").map(&:trim)).sort_by{|a,b|a*1000+b}.should == [[1,2],[2,1],[2,2]]
+        PP000
+        PE000
+        00000
+        B
       end
     end
   end
