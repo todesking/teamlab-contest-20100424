@@ -69,6 +69,13 @@ class Solver
     def h
       @board.length
     end
+    def count(target)
+      c=0
+      @board.each{|line|
+        c+=line.count(target)
+      }
+      return c
+    end
     def [](x,y)
       return 'X' unless (0...w).include? x
       return 'X' unless (0...h).include? y

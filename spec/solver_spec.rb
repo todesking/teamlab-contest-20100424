@@ -21,6 +21,17 @@ describe Solver::Board do
       should == 1
     end
   end
+  describe '#count' do
+    it 'should return count of specified cell' do
+      when_board_is %w(
+      000PEE
+      XXXXXX
+      )
+      @board.count('0').should == 3
+      @board.count('P').should == 1
+      @board.count('X').should == 6
+    end
+  end
   describe '#self[]' do
     it 'should return cell state of the position' do
       when_board_is [ '000', 'PEP' ]
