@@ -38,7 +38,34 @@ class Solver
       return @board[y][x,1]
     end
     def possible_pos
-      []
+      possibles=[]
+      (0...w).each{|x|
+        (0...h).each{|y|
+          next unless self[x,y]=='0'
+          possibles.push [x,y] if reversible_count(x,y)>0
+        }
+      }
+    end
+    def reversible_count x,y
+      return 0 unless self[x,y] == '0'
+      count=0
+      [
+        [-1,0],
+        [1,0],
+        [0,-1],
+        [0,1],
+        [1,1],
+        [1,-1],
+        [-1,1],
+        [-1,-1]
+      ].each{|dx,dy|
+        i=1
+        begin
+          i+=1
+        end while self[x+i*dx,y+i*dy] == 'E'
+        count+=i-1 if self[x+i*dx,y+i*dy]=='P'
+      }
+      return count
     end
   end
 end

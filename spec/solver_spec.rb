@@ -32,6 +32,27 @@ describe Solver::Board do
       @board[0,2].should == 'X'
     end
   end
+  describe '#reversible_count' do
+    it 'should return ひっくりかえせる駒の数' do
+      when_board_is %w(
+        00000
+        0EEE0
+        0EPE0
+        0EEE0
+        00000
+      )
+      @board.reversible_count(0,1).should == 0
+      @board.reversible_count(2,2).should == 0
+      @board.reversible_count(0,0).should == 1
+      @board.reversible_count(4,0).should == 1
+      @board.reversible_count(0,4).should == 1
+      @board.reversible_count(4,4).should == 1
+      @board.reversible_count(2,0).should == 1
+      @board.reversible_count(0,2).should == 1
+      @board.reversible_count(2,4).should == 1
+      @board.reversible_count(4,2).should == 1
+    end
+  end
   describe '#possible_pos' do
     subject { @board.possible_pos }
     it 'should return possible positions for next turn'do
