@@ -99,4 +99,16 @@ describe Solver::Board do
       )
     end
   end
+  describe '#reverse' do
+    it 'should return the new board that reverse player and enemy' do
+      when_board_is %w(
+      X00PE
+      0EPXX
+      )
+      @board.reverse.to_strarray.should == %w(
+      X00EP
+      0PEXX
+      )
+    end
+  end
 end

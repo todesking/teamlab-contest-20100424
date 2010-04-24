@@ -75,8 +75,11 @@ class Solver
       }
       return count
     end
+    def clone
+      return Board.new @board.map(&:dup),@reversible
+    end
     def put(x,y)
-      b=Board.new @board.map(&:dup),@reversible
+      b=clone
       b.set!(x,y,'P')
       DIRECTIONS.each{|dx,dy|
         i=1
@@ -93,6 +96,14 @@ class Solver
     end
     def set!(x,y,cell)
       @board[y][x]=cell[0]
+    end
+    def reverse
+      b=clone
+      b.reverse!
+      return b
+    end
+    def reverse!
+      @board=@board.map{|line| line.tr('PE','EP') }
     end
   end
 end
