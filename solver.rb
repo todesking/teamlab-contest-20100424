@@ -75,5 +75,24 @@ class Solver
       }
       return count
     end
+    def put(x,y)
+      b=Board.new @board.map(&:dup),@reversible
+      b.set!(x,y,'P')
+      DIRECTIONS.each{|dx,dy|
+        i=1
+        while b[x+dx*i,y+dy*i]=='E'
+          i+=1
+        end
+        if b[x+dx*i,y+dy*i]=='P'
+          (1...i).each{|j|
+            b.set!(x+dx*j,y+dy*j,'P')
+          }
+        end
+      }
+      return b
+    end
+    def set!(x,y,cell)
+      @board[y][x]=cell[0]
+    end
   end
 end

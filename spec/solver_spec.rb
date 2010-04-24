@@ -85,7 +85,6 @@ describe Solver::Board do
   end
   describe '#put' do
     it 'should return the new board state' do
-      pending
       when_board_is %w(
       00E00
       0PE00
