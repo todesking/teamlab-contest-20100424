@@ -45,6 +45,7 @@ class Solver
           possibles.push [x,y] if reversible_count(x,y)>0
         }
       }
+      return possibles
     end
     def reversible_count x,y
       return 0 unless self[x,y] == '0'

@@ -56,7 +56,6 @@ describe Solver::Board do
   describe '#possible_pos' do
     subject { @board.possible_pos }
     it 'should return possible positions for next turn'do
-      pending
       when_board_is ['PE0']
       should == [ [2,0] ]
     end
