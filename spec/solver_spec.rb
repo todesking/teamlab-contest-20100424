@@ -57,7 +57,7 @@ describe Solver::Board do
     subject { @board.possible_pos }
     it 'should return possible positions for next turn'do
       when_board_is ['PE0']
-      should == [ [2,0] ]
+      should == [ {:pos=>[2,0],:count=>1} ]
     end
   end
 end

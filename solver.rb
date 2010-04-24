@@ -52,7 +52,8 @@ class Solver
       (0...w).each{|x|
         (0...h).each{|y|
           next unless self[x,y]=='0'
-          possibles.push [x,y] if reversible_count(x,y)>0
+          count=reversible_count(x,y)
+          possibles.push :pos=>[x,y],:count=>count if count>0
         }
       }
       return possibles
