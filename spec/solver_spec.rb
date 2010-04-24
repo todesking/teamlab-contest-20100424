@@ -73,4 +73,31 @@ describe Solver::Board do
       should == [ {:pos=>[2,0],:count=>1} ]
     end
   end
+  describe '#to_strarray' do
+    it 'should return array of string that represents the board state' do
+      pattern=%w(
+      PXX0P
+      0EEP0
+      )
+      when_board_is pattern
+      @board.to_strarray.should == pattern
+    end
+  end
+  describe '#put' do
+    it 'should return the new board state' do
+      pending
+      when_board_is %w(
+      00E00
+      0PE00
+      00E00
+      0P000
+      )
+      @board.put(3,1).to_strarray.should == %w(
+      00E00
+      0PPP0
+      00P00
+      0P000
+      )
+    end
+  end
 end

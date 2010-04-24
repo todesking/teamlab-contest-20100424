@@ -38,6 +38,9 @@ class Solver
       @board=board
       @reversible=reversible
     end
+    def to_strarray
+      @board
+    end
     def w
       @board.first.length
     end
