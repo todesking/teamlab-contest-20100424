@@ -1,12 +1,14 @@
-
+require 'pp'
 class Solver
   def solve board,reversible
+    b=Board.new board,reversible
     if reversible==1 && rand < 0.4
       return [:reverse]
     end
-    availables=available_pos(board).sort_by{|pos|score(board,pos)}
-    puts 'availables: '+availables.inspect
-    return [:put,availables.first]
+    availables=b.possible_pos
+    puts 'availables: '
+    pp availables
+    return [:put,availables.choice[:pos]]
   end
   def available_pos board
     []
