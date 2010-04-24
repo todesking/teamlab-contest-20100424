@@ -32,9 +32,20 @@ describe Solver do
         @s.available_pos(['0','E','P']).should == [[0,0]]
       end
       it 'should return diagonal availables' do
-        pending
         @s.available_pos(['P00','0E0','000']).should == [[2,2]]
         @s.available_pos(['000','0E0','00P']).should == [[2,2]]
+        @s.available_pos(<<-B.split("\n").map(&:trim)).should == [[3,4]]
+        0000
+        0000
+        0P00
+        00E0
+        0000
+        B
+        @s.available_pos(<<-B.split("\n").map(&:trim)).should == [[4,2]]
+        00P00
+        000E0
+        00000
+        B
       end
       it 'should return various availables' do
         pending
