@@ -22,8 +22,8 @@ class OseroServlet < WEBrick::HTTPServlet::AbstractServlet
 end
 
 server = WEBrick::HTTPServer.new({
-:Port => 10080,
-:BindAddress => '127.0.0.1'})
+:Port => 8080,
+:BindAddress => '0.0.0.0'})
 server.mount('/', OseroServlet)
 trap('INT') { server.shutdown }
 server.start
