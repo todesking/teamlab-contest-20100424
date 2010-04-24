@@ -65,7 +65,7 @@ class Solver
       p ['dig-right',x]
       line=''
       (0...[width(board),height(board)].min).each{|i|
-        line+=board[i][x+i,x+i+1]
+        line+=board[i][x+i,1]
       }
       yield line,x,0
     }
@@ -73,7 +73,7 @@ class Solver
     (0...height(board)-2).each{|y|
       line=''
       (0..y).each{|x|
-        line+=board[y][x,x+1]
+        line+=board[y][x,1]
       }
       yield line,0,y
     }
@@ -84,14 +84,14 @@ class Solver
     (width(board)-1...2).each{|x|
       line=''
       (0..x).each{|y|
-        line+=board[y][x,x+1]
+        line+=board[y][x,1]
       }
       yield line,x,0
     }
     (0..(height(board)-2)).each{|y|
       line=''
       (width(board)-1...y).each{|x|
-        line+=board[y][x,x+1]
+        line+=board[y][x,1]
       }
       yield line,0,y
     }
