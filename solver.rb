@@ -4,9 +4,9 @@ class Solver
     if reversible==1 && rand < 0.4
       return [:reverse]
     end
-    availables=available_pos(board)
+    availables=available_pos(board).sort_by{|pos|score(board,pos)}
     puts 'availables: '+availables.inspect
-    return [:put,availables.choice]
+    return [:put,availables.first]
   end
   def available_pos board
     result=[]
@@ -27,7 +27,6 @@ class Solver
       end
     }
     #each_diagonal_right(board) {|line,x,y|
-      #p [line,x,y]
       #match=/0E+P|PE+0/.match(line)
       #unless match.nil?
         #match.length.times{|i|
@@ -45,6 +44,9 @@ class Solver
       #end
     #}
     result
+  end
+  def score(board,pos)
+    return rand
   end
   def each_horizonal board
     board.each_with_index{|line,y| yield line,y}
