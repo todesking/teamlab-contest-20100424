@@ -4,7 +4,7 @@ class Solver
     if reversible==1 && rand < 0.4
       return [:reverse]
     end
-    availables=available_pos(board).sort_by{|pos|score(board,pos)}
+    availables=available_pos(board).sort_by{|pos|-score(board,pos)}
     puts 'availables: '+availables.inspect
     return [:put,availables.first]
   end
@@ -47,7 +47,7 @@ class Solver
   end
   def score(board,pos)
     info=get_info(board,pos)
-    return info[:X]*0.3+info[:P]*-0.1+rand
+    return info[:X]*0.4+info[:P]*-0.1+rand
   end
   def get_info board,pos
     blank=0
