@@ -26,12 +26,15 @@ describe Solver do
         @s.available_pos(['PE0']).should == [[2,0]]
       end
       it 'should return vertical availables' do
+        pending
         @s.available_pos(['P','E','0']).should == [[0,2]]
       end
       it 'should return diagonal availables' do
+        pending
         @s.available_pos(['P00','0E0','000']).should == [[2,2]]
       end
       it 'should return various availables' do
+        pending
         @s.available_pos(<<-B.split("\n").map(&:trim)).sort_by{|a,b|a*1000+b}.should == [[1,2],[2,1],[2,2]]
         PP000
         PE000
