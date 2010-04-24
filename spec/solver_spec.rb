@@ -22,14 +22,16 @@ describe Solver do
       end
     end
     describe 'when some reversible positions exists' do
-      it 'returns all available pos that could reverse enemys block' do
-        # yoko
+      it 'should return horizontal availables' do
         @s.available_pos(['PE0']).should == [[2,0]]
-        #tate
+      end
+      it 'should return vertical availables' do
         @s.available_pos(['P','E','0']).should == [[0,2]]
-        #naname
+      end
+      it 'should return diagonal availables' do
         @s.available_pos(['P00','0E0','000']).should == [[2,2]]
-        # multiple
+      end
+      it 'should return various availables' do
         @s.available_pos(<<-B.split("\n").map(&:trim)).sort_by{|a,b|a*1000+b}.should == [[1,2],[2,1],[2,2]]
         PP000
         PE000

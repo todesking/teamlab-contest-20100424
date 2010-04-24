@@ -4,6 +4,5 @@ class Solver
     return [:put,[1,1]]
   end
   def available_pos board
-    []
   end
 end
