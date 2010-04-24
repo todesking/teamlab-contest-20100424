@@ -33,6 +33,9 @@ class Solver
       @board.length
     end
     def [](x,y)
+      return 'X' unless (0...w).include? x
+      return 'X' unless (0...h).include? y
+      return @board[y][x,1]
     end
     def possible_pos
       []

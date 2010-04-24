@@ -23,7 +23,6 @@ describe Solver::Board do
   end
   describe '#self[]' do
     it 'should return cell state of the position' do
-      pending
       when_board_is [ '000', 'PEP' ]
       @board[0,0].should == '0'
       @board[1,1].should == 'E'
