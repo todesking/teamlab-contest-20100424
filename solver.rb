@@ -65,9 +65,9 @@ class Solver
       count=0
       DIRECTIONS.each{|dx,dy|
         i=1
-        begin
+        while self[x+i*dx,y+i*dy] == 'E'
           i+=1
-        end while self[x+i*dx,y+i*dy] == 'E'
+        end
         count+=i-1 if self[x+i*dx,y+i*dy]=='P'
       }
       return count

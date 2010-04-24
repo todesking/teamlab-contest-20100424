@@ -51,6 +51,19 @@ describe Solver::Board do
       @board.reversible_count(0,2).should == 1
       @board.reversible_count(2,4).should == 1
       @board.reversible_count(4,2).should == 1
+
+      when_board_is %w(
+      00000000
+      00000000
+      0000E000
+      000EE000
+      000PE000
+      00000000
+      00000000
+      00000000
+      )
+      @board.reversible_count(1,2).should == 0
+      @board.reversible_count(5,4).should == 1
     end
   end
   describe '#possible_pos' do
