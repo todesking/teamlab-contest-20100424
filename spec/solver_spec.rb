@@ -66,6 +66,18 @@ describe Solver::Board do
       @board.reversible_count(5,4).should == 1
     end
   end
+  describe '#cell_state' do
+    it 'should return the state(corner,edge,etc) of the position' do
+      when_board_is %w(
+      000
+      000
+      000
+      )
+      @board.cell_state(0,0).should == {:walls=>5}
+      @board.cell_state(1,0).should == {:walls=>3}
+      @board.cell_state(1,1).should == {:walls=>0}
+    end
+  end
   describe '#possible_pos' do
     subject { @board.possible_pos }
     it 'should return possible positions for next turn'do

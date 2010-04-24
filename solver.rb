@@ -2,9 +2,6 @@ require 'pp'
 class Solver
   def solve board,reversible
     b=Board.new board,reversible
-    if reversible==1 && rand < 0.4
-      return [:reverse]
-    end
     availables=b.possible_pos.sort_by{|info| -score(b,info)}
     puts 'availables: '
     pp availables
@@ -13,7 +10,15 @@ class Solver
   def score(board,info)
     enemy_possible_count=board.put(info[:pos][0],info[:pos][1]).possible_pos.count
     info[:enemys_possible]=enemy_possible_count
-    return -enemy_possible_count*100+info[:count]
+    info.merge! board.cell_state(info[:pos][0],info[:pos][1])
+    case
+    when info[:walls]>=5
+      return 1000
+    when info[:walls]>=3
+      return 500
+    else
+      return -enemy_possible_count*100+info[:count]
+    end
   end
   def get_info board,pos
     blank=0
@@ -29,9 +34,9 @@ class Solver
         [0,-1],
         [0,1],
         [1,1],
+        [-1,-1],
         [1,-1],
-        [-1,1],
-        [-1,-1]
+        [-1,1]
     ]
     def initialize board,reversible
       @board=board
@@ -103,6 +108,16 @@ class Solver
     end
     def reverse!
       @board=@board.map{|line| line.tr('PE','EP') }
+    end
+    def cell_state x,y
+      raise 'its not empty cell: '+[x,y].inspect unless self[x,y]=='0'
+      walls=0
+      DIRECTIONS.each{|dx,dy|
+        walls+=1 if self[x+dx,y+dy]=='X'
+      }
+      return {
+        :walls=>walls
+      }
     end
   end
 end
