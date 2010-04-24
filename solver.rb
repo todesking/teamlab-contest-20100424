@@ -8,17 +8,35 @@ class Solver
     return [:put,availables.first[:pos]]
   end
   def score(board,info)
-    enemy_possible_count=board.put(info[:pos][0],info[:pos][1]).possible_pos.count
-    info[:enemys_possible]=enemy_possible_count
-    info.merge! board.cell_state(info[:pos][0],info[:pos][1])
+    x=info[:pos][0]
+    y=info[:pos][1]
+    enemy_possible_pos=board.put(x,y).reverse!.possible_pos
+    info[:enemys_possible_count]=enemy_possible_pos.count
+    info.merge! board.cell_state(x,y)
+    s=0
     case
     when info[:walls]>=5
       return 1000
     when info[:walls]>=3
       return 500
     else
-      return -enemy_possible_count*100+info[:count]
+      return info[:count]-(enemy_possible_pos.empty? ? 0 : enemy_possible_pos.map{|x|x[:count]}.max)
     end
+  end
+  def enemy_score(board)
+    s=0
+    board.possible_pos.map{|info|
+      x=info[:pos][0]
+      y=info[:pos][1]
+      walls=board.cell_state(x,y)[:walls]
+      if walls >= 5
+        s+=1000
+      elsif walls >= 3
+        s+=4
+      end
+      s+=info[:count]
+    }
+    return s
   end
   def get_info board,pos
     blank=0
@@ -100,6 +118,7 @@ class Solver
     end
     def set!(x,y,cell)
       @board[y][x]=cell[0]
+      return self
     end
     def reverse
       b=clone
@@ -108,6 +127,7 @@ class Solver
     end
     def reverse!
       @board=@board.map{|line| line.tr('PE','EP') }
+      return self
     end
     def cell_state x,y
       raise 'its not empty cell: '+[x,y].inspect unless self[x,y]=='0'
