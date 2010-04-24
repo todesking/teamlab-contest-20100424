@@ -35,7 +35,6 @@ class Solver
       end
     }
     each_diagonal_left(board) {|line,x,y|
-      p [line,x]
       match=/0E+P|PE+0/.match(line)
       unless match.nil?
         match.length.times{|i|
@@ -43,7 +42,7 @@ class Solver
         }
       end
     }
-    result
+    return result.uniq
   end
   def score(board,pos)
     info=get_info(board,pos)
@@ -91,16 +90,16 @@ class Solver
     # \ (upper)
     (0...width(board)-2).each{|x|
       line=''
-      (0...[width(board)-x,height(board)-x].min).each{|i|
+      (0...[width(board)-x,height(board)].min).each{|i|
         line+=board[i][x+i,1]
       }
       yield line,x,0
     }
     # \ (downer)
-    (0...height(board)-2).each{|y|
+    (0..height(board)-3).each{|y|
       line=''
-      (0..y).each{|x|
-        line+=board[y][x,1]
+      (0...[width(board),height(board)-y].min).each{|i|
+        line+=board[y+i][i,1]
       }
       yield line,0,y
     }
