@@ -30,6 +30,7 @@ class Solver
       @board.first.length
     end
     def h
+      @board.length
     end
     def [](x,y)
     end

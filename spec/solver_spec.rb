@@ -17,7 +17,6 @@ describe Solver::Board do
   describe '#h' do
     subject { @board.h }
     it 'should return height of board' do
-      pending
       when_board_is [ '000' ]
       should == 1
     end
