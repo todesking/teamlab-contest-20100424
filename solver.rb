@@ -46,7 +46,33 @@ class Solver
     result
   end
   def score(board,pos)
-    return rand
+    info=get_info(board,pos)
+    return info[:X]*0.3+info[:P]*-0.1+rand
+  end
+  def get_info board,pos
+    blank=0
+    player=0
+    enemy=0
+    block=0
+    dirs=[[-1,0],[1,0],[0,-1],[0,1],[1,1],[1,-1],[-1,1],[-1,-1]]
+    dirs.each{|dir|
+      case block_at(board,[pos[0]+dir[0],pos[1]+dir[1]])
+      when 'X'
+        block+=1
+      when 'E'
+        enemy+=1
+      when 'P'
+        player+=1
+      when '0'
+        blank+=1
+      end
+    }
+    return :blank=>blank,:P=>player,:E=>enemy,:X=>block
+  end
+  def block_at board,pos
+    return 'X' if pos[0] < 0 || width(board)<=pos[1]
+    return 'X' if pos[1] < 0 || height(board)<=pos[1]
+    return board[pos[1]][pos[0],1]
   end
   def each_horizonal board
     board.each_with_index{|line,y| yield line,y}
