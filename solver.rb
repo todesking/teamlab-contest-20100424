@@ -1,7 +1,12 @@
 
 class Solver
   def solve board,reversible
-    return [:put,[1,1]]
+    if reversible==1 && rand < 0.4
+      return [:reverse]
+    end
+    availables=available_pos(board)
+    puts 'availables: '+availables.inspect
+    return [:put,availables.choice]
   end
   def available_pos board
     result=[]
@@ -21,24 +26,24 @@ class Solver
         }
       end
     }
-    each_diagonal_right(board) {|line,x,y|
-      p [line,x,y]
-      match=/0E+P|PE+0/.match(line)
-      unless match.nil?
-        match.length.times{|i|
-          result.push match[i][0]=='0'[0] ? [x,y+match.begin(i)] : [x+match.end(i)-1,y+match.end(i)-1]
-        }
-      end
-    }
-    each_diagonal_left(board) {|line,x,y|
-      p [line,x]
-      match=/0E+P|PE+0/.match(line)
-      unless match.nil?
-        match.length.times{|i|
-          result.push match[i][0]=='0'[0] ? [x,y+match.begin(i)] : [x,y-match.end(i)-1]
-        }
-      end
-    }
+    #each_diagonal_right(board) {|line,x,y|
+      #p [line,x,y]
+      #match=/0E+P|PE+0/.match(line)
+      #unless match.nil?
+        #match.length.times{|i|
+          #result.push match[i][0]=='0'[0] ? [x,y+match.begin(i)] : [x+match.end(i)-1,y+match.end(i)-1]
+        #}
+      #end
+    #}
+    #each_diagonal_left(board) {|line,x,y|
+      #p [line,x]
+      #match=/0E+P|PE+0/.match(line)
+      #unless match.nil?
+        #match.length.times{|i|
+          #result.push match[i][0]=='0'[0] ? [x,y+match.begin(i)] : [x,y-match.end(i)-1]
+        #}
+      #end
+    #}
     result
   end
   def each_horizonal board
@@ -46,9 +51,9 @@ class Solver
   end
   def each_vertical board
     board.first.length.times{|x|
-      line=""
+      line=''
       board.length.times{|y|
-        line+=board[y][x,x+1]
+        line+=board[y][x,1]
       }
       yield line,x
     }
