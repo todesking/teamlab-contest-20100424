@@ -46,6 +46,11 @@ describe Solver do
         000E0
         00000
         B
+        @s.available_pos(<<-B.split("\n").map(&:strip)).should == [[0,2]]
+        00P00
+        0E000
+        00000
+        B
       end
       it 'should return various availables' do
         pending

@@ -46,6 +46,7 @@ class Solver
   end
   def score(board,pos)
     info=get_info(board,pos)
+    return -1 if info[:E]<1
     return info[:X]*0.3+info[:P]*-0.1+rand
   end
   def get_info board,pos
@@ -106,18 +107,19 @@ class Solver
   end
   def each_diagonal_left board
     return if width(board)<3 || height(board)<3
-    # /(upper)
-    (width(board)-1...2).each{|x|
+    # / (upper)
+    (0...width(board)-2).each{|x|
       line=''
-      (0..x).each{|y|
-        line+=board[y][x,1]
+      ([width(board)-x,height(board)].min-1..0).each{|i|
+        line+=board[i][x+i,1]
       }
       yield line,x,0
     }
-    (0..(height(board)-2)).each{|y|
+    # / (downer)
+    (0..height(board)-3).each{|y|
       line=''
-      (width(board)-1...y).each{|x|
-        line+=board[y][x,1]
+      ([width(board),height(board)-y].min-1..0).each{|i|
+        line+=board[y+i][i,1]
       }
       yield line,0,y
     }
