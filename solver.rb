@@ -5,16 +5,15 @@ class Solver
     if reversible==1 && rand < 0.4
       return [:reverse]
     end
-    availables=b.possible_pos
+    availables=b.possible_pos.sort_by{|info| -score(b,info)}
     puts 'availables: '
     pp availables
-    return [:put,availables.choice[:pos]]
+    return [:put,availables.first[:pos]]
   end
-  def available_pos board
-    []
-  end
-  def score(board,pos)
-    0
+  def score(board,info)
+    enemy_possible_count=board.put(info[:pos][0],info[:pos][1]).possible_pos.count
+    info[:enemys_possible]=enemy_possible_count
+    return -enemy_possible_count*100+info[:count]
   end
   def get_info board,pos
     blank=0
