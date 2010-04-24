@@ -27,6 +27,7 @@ class Solver
       @reversible=reversible
     end
     def w
+      @board.first.length
     end
     def h
     end

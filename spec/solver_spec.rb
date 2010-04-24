@@ -10,7 +10,6 @@ describe Solver::Board do
   describe '#w' do
     subject { @board.w }
     it 'should return width of the board' do
-      pending
       when_board_is [ '000' ]
       should == 3
     end
