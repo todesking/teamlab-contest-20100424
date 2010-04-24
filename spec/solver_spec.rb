@@ -21,6 +21,11 @@ describe Solver::Board do
       should == 1
     end
   end
+  describe '#reversible' do
+    it 'should return reversible status' do
+      Solver::Board.new(['000'],2).reversible.should == 2
+    end
+  end
   describe '#count' do
     it 'should return count of specified cell' do
       when_board_is %w(

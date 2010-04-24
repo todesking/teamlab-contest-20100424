@@ -69,6 +69,9 @@ class Solver
     def h
       @board.length
     end
+    def reversible
+      return @reversible
+    end
     def count(target)
       c=0
       @board.each{|line|
