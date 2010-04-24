@@ -22,6 +22,16 @@ class Solver
     return :blank=>blank,:P=>player,:E=>enemy,:X=>block
   end
   class Board
+    DIRECTIONS=[
+        [-1,0],
+        [1,0],
+        [0,-1],
+        [0,1],
+        [1,1],
+        [1,-1],
+        [-1,1],
+        [-1,-1]
+    ]
     def initialize board,reversible
       @board=board
       @reversible=reversible
@@ -50,16 +60,7 @@ class Solver
     def reversible_count x,y
       return 0 unless self[x,y] == '0'
       count=0
-      [
-        [-1,0],
-        [1,0],
-        [0,-1],
-        [0,1],
-        [1,1],
-        [1,-1],
-        [-1,1],
-        [-1,-1]
-      ].each{|dx,dy|
+      DIRECTIONS.each{|dx,dy|
         i=1
         begin
           i+=1
